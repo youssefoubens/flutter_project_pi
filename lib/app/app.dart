@@ -1,38 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../features/auth/screens/login_screen.dart';
+import '../features/dashboard/dashboard_screen.dart';
+import 'app_settings_provider.dart';
 import 'theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'localization.dart';
 
-class App extends StatefulWidget {
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AppSettingsProvider(),
+      child: const App(),
+    ),
+  );
+}
+
+class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  ThemeMode _themeMode = ThemeMode.system;
-  Locale _locale = const Locale('fr');
-
-  void toggleTheme(bool isDark) {
-    setState(() {
-      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
-    });
-  }
-
-  void changeLanguage(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: _themeMode,
-      locale: _locale,
-      home: const LoginScreen(),
+    return Consumer<AppSettingsProvider>(
+      builder: (context, settings, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'SmartLegal Maroc',
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: settings.themeMode,
+          locale: settings.locale,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''), // English as fallback
+            Locale('fr', ''), // French
+            Locale('ar', ''), // Arabic
+          ],
+          home: const LoginScreen(),
+        );
+      },
     );
   }
 }

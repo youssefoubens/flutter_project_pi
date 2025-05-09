@@ -25,6 +25,10 @@ class AppLocalizations {
       'settings': 'Paramètres',
       'darkMode': 'Mode Sombre',
       'logout': 'Déconnexion',
+      'languageSelection': 'Sélection de la langue',
+      'legalAssistant': 'Assistant Juridique',
+      'startChat': 'Commencez à poser vos questions juridiques',
+      'typeMessage': 'Tapez votre message...',
     },
     'ar': {
       'login': 'تسجيل الدخول',
@@ -34,6 +38,10 @@ class AppLocalizations {
       'settings': 'الإعدادات',
       'darkMode': 'الوضع المظلم',
       'logout': 'تسجيل الخروج',
+      'languageSelection': 'Sélection de la langue',
+      'legalAssistant': 'Assistant Juridique',
+      'startChat': 'Commencez à poser vos questions juridiques',
+      'typeMessage': 'Tapez votre message...',
     },
   };
 
@@ -45,6 +53,11 @@ class AppLocalizations {
   String get settings => _localizedValues[locale.languageCode]!['settings']!;
   String get darkMode => _localizedValues[locale.languageCode]!['darkMode']!;
   String get logout => _localizedValues[locale.languageCode]!['logout']!;
+
+  String get startChat => _localizedValues[locale.languageCode]!['startChat']!;
+
+  String get typeMessage =>
+      _localizedValues[locale.languageCode]!['typeMessage']!;
 }
 
 class _AppLocalizationsDelegate

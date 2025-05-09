@@ -1,11 +1,18 @@
 import 'package:app1/app/theme.dart';
+import 'package:app1/app/app_settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'app/app.dart';
 import 'app/localization.dart';
 
 void main() {
-  runApp(const SmartLegalApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AppSettingsProvider(),
+      child: const App(),
+    ),
+  );
 }
 
 class SmartLegalApp extends StatelessWidget {

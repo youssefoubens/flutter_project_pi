@@ -1,5 +1,8 @@
+import 'package:app1/app/app_settings_provider.dart';
 import 'package:app1/app/localization.dart';
+import 'package:app1/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/language_switcher.dart';
 
@@ -9,6 +12,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
+    final settings = Provider.of<AppSettingsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(title: Text(localizations.profile)),
@@ -20,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
             const Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assets/profile_placeholder.png'),
+                child: Icon(Icons.person, size: 50),
               ),
             ),
             const SizedBox(height: 16),
@@ -44,19 +48,25 @@ class ProfileScreen extends StatelessWidget {
             ),
             SwitchListTile(
               title: Text(localizations.darkMode),
-              value: Theme.of(context).brightness == Brightness.dark,
+              value: settings.themeMode == ThemeMode.dark,
               onChanged: (value) {
-                // Toggle theme
+                settings.setThemeMode(value ? ThemeMode.dark : ThemeMode.light);
               },
             ),
             const LanguageSwitcher(),
             const Spacer(),
             Center(
-              child: TextButton(
+              child: TextButton.icon(
                 onPressed: () {
                   // Logout logic
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    (route) => false,
+                  );
                 },
-                child: Text(localizations.logout),
+                icon: const Icon(Icons.logout),
+                label: Text(localizations.logout),
               ),
             ),
           ],

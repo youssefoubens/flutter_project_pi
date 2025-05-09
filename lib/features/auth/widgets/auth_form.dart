@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
 import '../../../shared/widgets/app_button.dart';
 import '../../../shared/widgets/app_text_field.dart';
+import '../screens/login_screen.dart';
+import '../../../features/dashboard/dashboard_screen.dart';
 
 class AuthForm extends StatefulWidget {
   final bool isLogin;
@@ -73,14 +74,26 @@ class _AuthFormState extends State<AuthForm> {
                 // Simulate authentication
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (_) => const Scaffold(body: Center(child: Text('Dashboard youssef')))),
+                  MaterialPageRoute(builder: (_) => const DashboardScreen()),
                 );
               }
             },
           ),
           TextButton(
             onPressed: () {
-              // Navigate to signup/login
+              if (widget.isLogin) {
+                // Navigate to signup screen
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SignupScreen()),
+                );
+              } else {
+                // Navigate to login screen
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+                );
+              }
             },
             child: Text(
               widget.isLogin 
@@ -90,6 +103,18 @@ class _AuthFormState extends State<AuthForm> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SignupScreen extends StatelessWidget {
+  const SignupScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Inscription')),
+      body: const AuthForm(isLogin: false),
     );
   }
 }

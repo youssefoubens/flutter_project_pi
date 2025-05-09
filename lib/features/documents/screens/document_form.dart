@@ -113,10 +113,10 @@ class DocumentPreviewScreen extends StatelessWidget {
   final Map<String, String> formData;
 
   const DocumentPreviewScreen({
-    Key? key,
+    super.key,
     required this.template,
     required this.formData,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
